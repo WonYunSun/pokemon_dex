@@ -1,3 +1,9 @@
-export default function Dex() {
-  return <div>Dex</div>;
+import Dashboard from "../components/Dashboard";
+
+export default function Dex({ mockData }) {
+  return (
+    <div>
+      <Dashboard mockData={mockData} />
+    </div>
+  );
 }

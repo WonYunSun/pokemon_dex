@@ -14,7 +14,7 @@ const HomeContainer = styled.div`
 const LogoImg = styled.div`
   width: 600px; // 이미지의 너비
   height: 220px;
-  background-image: url("src/assets/pokemon-logo.png");
+  background-image: url("/assets/pokemon-logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

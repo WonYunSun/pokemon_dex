@@ -1,11 +1,19 @@
 import PokemonList from "./PokemonList";
 import PokemonSelectList from "./PokemonSelectList";
 
-function Dashboard({ mockData }) {
+function Dashboard({
+  mockData,
+  selectedPokemon,
+  onSelectPokemon,
+  onRemovePokemon,
+}) {
   return (
     <>
-      <PokemonSelectList />
-      <PokemonList mockData={mockData} />
+      <PokemonSelectList
+        selectedPokemon={selectedPokemon}
+        onRemovePokemon={onRemovePokemon}
+      />
+      <PokemonList mockData={mockData} onSelectPokemon={onSelectPokemon} />
     </>
   );
 }

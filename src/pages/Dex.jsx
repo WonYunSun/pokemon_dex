@@ -1,9 +1,23 @@
 import Dashboard from "../components/Dashboard";
+import styled from "styled-components";
 
-export default function Dex({ mockData }) {
+const StyledDexContainer = styled.div`
+  margin: 20px;
+`;
+export default function Dex({
+  mockData,
+  selectedPokemon,
+  onSelectPokemon,
+  onRemovePokemon,
+}) {
   return (
-    <div>
-      <Dashboard mockData={mockData} />
-    </div>
+    <StyledDexContainer>
+      <Dashboard
+        mockData={mockData}
+        selectedPokemon={selectedPokemon}
+        onSelectPokemon={onSelectPokemon}
+        onRemovePokemon={onRemovePokemon}
+      />
+    </StyledDexContainer>
   );
 }

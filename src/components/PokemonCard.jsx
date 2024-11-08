@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import styled from "styled-components";
+import { useContext } from "react";
+import PokemonContext from "../context/PokemonContext"; // Context import
 
 const scaleAnimation = `
   @keyframes scaleUpDown {
@@ -8,7 +10,7 @@ const scaleAnimation = `
       transform: scale(1);
     }
     50% {
-      transform: scale(1.03); /* 커짐 */
+      transform: scale(1.03);
     }
     100% {
       transform: scale(1);
@@ -28,26 +30,29 @@ const StyledCard = styled.div`
   &:hover {
     border-color: #c73625;
     background-color: #bababa;
-    animation: scaleUpDown 0.6s ease-in-out infinite; /* 애니메이션 반복 */
+    animation: scaleUpDown 0.6s ease-in-out infinite;
   }
-  /* 애니메이션 추가 */
   ${scaleAnimation}
 `;
 
-function PokemonCard({ pokemon, onSelectPokemon, onRemovePokemon }) {
+function PokemonCard({ pokemon, buttonType }) {
+  const { handleSelectPokemon, handleRemovePokemon } =
+    useContext(PokemonContext);
+
   return (
     <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
       <StyledCard>
         <img src={pokemon.img_url} alt={pokemon.korean_name} />
         <h3>{pokemon.korean_name}</h3>
         <p>{"NO." + pokemon.id.toString().padStart(3, "0")}</p>
-        {onSelectPokemon ? (
+
+        {buttonType !== "delete" ? (
           <Button
             text={"추가"}
             onClick={(e) => {
               e.preventDefault();
-              e.stopPropagation(); // Link 이벤트 막기
-              onSelectPokemon(pokemon);
+              e.stopPropagation();
+              handleSelectPokemon(pokemon);
             }}
           />
         ) : (
@@ -55,8 +60,8 @@ function PokemonCard({ pokemon, onSelectPokemon, onRemovePokemon }) {
             text={"삭제"}
             onClick={(e) => {
               e.preventDefault();
-              e.stopPropagation(); // Link 이벤트 막기
-              onRemovePokemon(pokemon);
+              e.stopPropagation();
+              handleRemovePokemon(pokemon);
             }}
           />
         )}

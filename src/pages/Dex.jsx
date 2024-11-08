@@ -4,20 +4,10 @@ import styled from "styled-components";
 const StyledDexContainer = styled.div`
   margin: 20px;
 `;
-export default function Dex({
-  mockData,
-  selectedPokemon,
-  onSelectPokemon,
-  onRemovePokemon,
-}) {
+export default function Dex() {
   return (
     <StyledDexContainer>
-      <Dashboard
-        mockData={mockData}
-        selectedPokemon={selectedPokemon}
-        onSelectPokemon={onSelectPokemon}
-        onRemovePokemon={onRemovePokemon}
-      />
+      <Dashboard />
     </StyledDexContainer>
   );
 }

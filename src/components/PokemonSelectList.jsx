@@ -1,5 +1,8 @@
-import { styled } from "styled-components";
+import { useContext } from "react";
 import PokemonCard from "./PokemonCard";
+import styled from "styled-components";
+import PokemonContext from "../context/PokemonContext"; // Context import
+
 const StyledPokemonSelectList = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,6 +17,7 @@ const StyledPokemonSelectList = styled.div`
     padding: 0 0 20px 0;
   }
 `;
+
 const PokeBallsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -27,6 +31,7 @@ const PokeBallsWrapper = styled.div`
   width: 100%;
   justify-items: center;
 `;
+
 const PokeBallWrapper = styled.div`
   width: 100px;
   height: 100px;
@@ -47,10 +52,9 @@ const PokeBall = styled.div`
   background-position: center;
 `;
 
-export default function PokemonSelectList({
-  selectedPokemon,
-  onRemovePokemon,
-}) {
+export default function PokemonSelectList() {
+  const { selectedPokemon } = useContext(PokemonContext); // onRemovePokemon을 사용할 필요 없음
+
   const pokemonsList = Array(6).fill(null);
   return (
     <StyledPokemonSelectList>
@@ -61,7 +65,7 @@ export default function PokemonSelectList({
             <PokemonCard
               key={i}
               pokemon={selectedPokemon[i]}
-              onRemovePokemon={onRemovePokemon}
+              buttonType={"delete"}
             />
           ) : (
             <EmptyBox key={i} />

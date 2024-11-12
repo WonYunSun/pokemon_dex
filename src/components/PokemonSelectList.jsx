@@ -56,7 +56,6 @@ export default function PokemonSelectList() {
   const selectedPokemons = useSelector(
     (state) => state.pokemon.selectedPokemons
   );
-  console.log("Selected Pokemons from SelectList:", selectedPokemons);
 
   const pokemonsList = Array(6).fill(null);
   return (

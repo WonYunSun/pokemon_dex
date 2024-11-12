@@ -35,16 +35,20 @@ const StyledCard = styled.div`
   ${scaleAnimation}
 `;
 
+const StyledImage = styled.img`
+  width: auto; /* 카드의 너비에 맞춤 */
+  height: 50px; /* 원하는 높이로 고정 */
+  object-fit: cover; /* 이미지가 넘칠 경우 잘라냄 */
+`;
+
 function PokemonCard({ pokemon, buttonType }) {
   const dispatch = useDispatch();
 
   const handleAddPokemon = (pokemon) => {
-    console.log("Adding Pokemon:", pokemon);
     dispatch(addPokemon(pokemon));
   };
 
   const handleRemovePokemon = (pokemon) => {
-    console.log("Removing Pokemon:", pokemon);
     dispatch(removePokemon(pokemon));
   };
 
@@ -61,7 +65,7 @@ function PokemonCard({ pokemon, buttonType }) {
   return (
     <StyledCard>
       <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
-        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <StyledImage src={pokemon.img_url} alt={pokemon.korean_name} />
         <h3>{pokemon.korean_name}</h3>
         <p>{"NO." + pokemon.id.toString().padStart(3, "0")}</p>
       </Link>

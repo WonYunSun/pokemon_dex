@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import PokemonCard from "./PokemonCard";
 import styled from "styled-components";
-import PokemonContext from "../context/PokemonContext"; // Context import
+import { useSelector } from "react-redux";
 
 const StyledPokemonSelectList = styled.div`
   display: flex;
@@ -53,7 +52,11 @@ const PokeBall = styled.div`
 `;
 
 export default function PokemonSelectList() {
-  const { selectedPokemon } = useContext(PokemonContext); // onRemovePokemon을 사용할 필요 없음
+  // Redux에서 selectedPokemons를 가져오기
+  const selectedPokemons = useSelector(
+    (state) => state.pokemon.selectedPokemons
+  );
+  console.log("Selected Pokemons from SelectList:", selectedPokemons);
 
   const pokemonsList = Array(6).fill(null);
   return (
@@ -61,10 +64,10 @@ export default function PokemonSelectList() {
       <h2>포켓몬을 선택하세요</h2>
       <PokeBallsWrapper>
         {pokemonsList.map((_, i) => {
-          return selectedPokemon[i] ? (
+          return selectedPokemons[i] ? (
             <PokemonCard
               key={i}
-              pokemon={selectedPokemon[i]}
+              pokemon={selectedPokemons[i]}
               buttonType={"delete"}
             />
           ) : (

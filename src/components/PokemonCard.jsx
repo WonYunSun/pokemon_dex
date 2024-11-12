@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import styled from "styled-components";
-import { useContext } from "react";
-import PokemonContext from "../context/PokemonContext"; // Context import
+import { useDispatch } from "react-redux";
+import { addPokemon, removePokemon } from "../features/pokemonSlice";
 
 const scaleAnimation = `
   @keyframes scaleUpDown {
@@ -36,37 +36,41 @@ const StyledCard = styled.div`
 `;
 
 function PokemonCard({ pokemon, buttonType }) {
-  const { handleSelectPokemon, handleRemovePokemon } =
-    useContext(PokemonContext);
+  const dispatch = useDispatch();
+
+  const handleAddPokemon = (pokemon) => {
+    console.log("Adding Pokemon:", pokemon);
+    dispatch(addPokemon(pokemon));
+  };
+
+  const handleRemovePokemon = (pokemon) => {
+    console.log("Removing Pokemon:", pokemon);
+    dispatch(removePokemon(pokemon));
+  };
+
+  const handleButtonClick = (e, pokemon) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (buttonType !== "delete") {
+      handleAddPokemon(pokemon);
+    } else {
+      handleRemovePokemon(pokemon);
+    }
+  };
 
   return (
-    <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
-      <StyledCard>
+    <StyledCard>
+      <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
         <img src={pokemon.img_url} alt={pokemon.korean_name} />
         <h3>{pokemon.korean_name}</h3>
         <p>{"NO." + pokemon.id.toString().padStart(3, "0")}</p>
+      </Link>
 
-        {buttonType !== "delete" ? (
-          <Button
-            text={"추가"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleSelectPokemon(pokemon);
-            }}
-          />
-        ) : (
-          <Button
-            text={"삭제"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleRemovePokemon(pokemon);
-            }}
-          />
-        )}
-      </StyledCard>
-    </Link>
+      <Button
+        text={buttonType !== "delete" ? "추가" : "삭제"}
+        onClick={(e) => handleButtonClick(e, pokemon)}
+      />
+    </StyledCard>
   );
 }
 

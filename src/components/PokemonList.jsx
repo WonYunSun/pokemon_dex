@@ -12,13 +12,20 @@ const StyledPokemonList = styled.div`
   border-radius: 10px;
   color: #292929;
 `;
+const PokemonCards = () => {
+  return (
+    <>
+      {MOCK_DATA.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+      ))}
+    </>
+  );
+};
 
 function PokemonList() {
   return (
     <StyledPokemonList>
-      {MOCK_DATA.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-      ))}
+      <PokemonCards />
     </StyledPokemonList>
   );
 }

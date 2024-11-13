@@ -11,9 +11,9 @@ const StyledPokemonList = styled.div`
   color: #292929;
 `;
 
-function PokemonList({ mockData, onSelectPokemon }) {
+const PokemonCards = ({ mockData, onSelectPokemon }) => {
   return (
-    <StyledPokemonList>
+    <>
       {mockData.map((pokemon, i) => (
         <PokemonCard
           key={i}
@@ -21,6 +21,14 @@ function PokemonList({ mockData, onSelectPokemon }) {
           onSelectPokemon={onSelectPokemon}
         />
       ))}
+    </>
+  );
+};
+
+function PokemonList({ mockData, onSelectPokemon }) {
+  return (
+    <StyledPokemonList>
+      <PokemonCards mockData={mockData} onSelectPokemon={onSelectPokemon} />
     </StyledPokemonList>
   );
 }

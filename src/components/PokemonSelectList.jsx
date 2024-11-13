@@ -1,5 +1,7 @@
-import { styled } from "styled-components";
 import PokemonCard from "./PokemonCard";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+
 const StyledPokemonSelectList = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,6 +16,7 @@ const StyledPokemonSelectList = styled.div`
     padding: 0 0 20px 0;
   }
 `;
+
 const PokeBallsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -27,6 +30,7 @@ const PokeBallsWrapper = styled.div`
   width: 100%;
   justify-items: center;
 `;
+
 const PokeBallWrapper = styled.div`
   width: 100px;
   height: 100px;
@@ -47,21 +51,23 @@ const PokeBall = styled.div`
   background-position: center;
 `;
 
-export default function PokemonSelectList({
-  selectedPokemon,
-  onRemovePokemon,
-}) {
+export default function PokemonSelectList() {
+  // Redux에서 selectedPokemons를 가져오기
+  const selectedPokemons = useSelector(
+    (state) => state.pokemon.selectedPokemons
+  );
+
   const pokemonsList = Array(6).fill(null);
   return (
     <StyledPokemonSelectList>
       <h2>포켓몬을 선택하세요</h2>
       <PokeBallsWrapper>
         {pokemonsList.map((_, i) => {
-          return selectedPokemon[i] ? (
+          return selectedPokemons[i] ? (
             <PokemonCard
               key={i}
-              pokemon={selectedPokemon[i]}
-              onRemovePokemon={onRemovePokemon}
+              pokemon={selectedPokemons[i]}
+              buttonType={"delete"}
             />
           ) : (
             <EmptyBox key={i} />

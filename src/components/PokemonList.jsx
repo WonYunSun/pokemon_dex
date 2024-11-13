@@ -1,5 +1,7 @@
 import PokemonCard from "./PokemonCard";
 import styled from "styled-components";
+import MOCK_DATA from "../data/PokemonMockData"; // MOCK_DATA 직접 import
+
 const StyledPokemonList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -11,24 +13,20 @@ const StyledPokemonList = styled.div`
   color: #292929;
 `;
 
-const PokemonCards = ({ mockData, onSelectPokemon }) => {
+const PokemonCards = () => {
   return (
     <>
-      {mockData.map((pokemon, i) => (
-        <PokemonCard
-          key={i}
-          pokemon={pokemon}
-          onSelectPokemon={onSelectPokemon}
-        />
+      {MOCK_DATA.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
     </>
   );
 };
 
-function PokemonList({ mockData, onSelectPokemon }) {
+function PokemonList() {
   return (
     <StyledPokemonList>
-      <PokemonCards mockData={mockData} onSelectPokemon={onSelectPokemon} />
+      <PokemonCards />
     </StyledPokemonList>
   );
 }

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { addPokemon, removePokemon } from "../features/pokemonSlice";
 
 const scaleAnimation = `
   @keyframes scaleUpDown {
@@ -8,7 +10,7 @@ const scaleAnimation = `
       transform: scale(1);
     }
     50% {
-      transform: scale(1.03); /* 커짐 */
+      transform: scale(1.03);
     }
     100% {
       transform: scale(1);
@@ -28,40 +30,51 @@ const StyledCard = styled.div`
   &:hover {
     border-color: #c73625;
     background-color: #bababa;
-    animation: scaleUpDown 0.6s ease-in-out infinite; /* 애니메이션 반복 */
+    animation: scaleUpDown 0.6s ease-in-out infinite;
   }
-  /* 애니메이션 추가 */
   ${scaleAnimation}
 `;
 
-function PokemonCard({ pokemon, onSelectPokemon, onRemovePokemon }) {
+const StyledImage = styled.img`
+  width: auto; /* 카드의 너비에 맞춤 */
+  height: 50px; /* 원하는 높이로 고정 */
+  object-fit: cover; /* 이미지가 넘칠 경우 잘라냄 */
+`;
+
+function PokemonCard({ pokemon, buttonType }) {
+  const dispatch = useDispatch();
+
+  const handleAddPokemon = (pokemon) => {
+    dispatch(addPokemon(pokemon));
+  };
+
+  const handleRemovePokemon = (pokemon) => {
+    dispatch(removePokemon(pokemon));
+  };
+
+  const handleButtonClick = (e, pokemon) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (buttonType !== "delete") {
+      handleAddPokemon(pokemon);
+    } else {
+      handleRemovePokemon(pokemon);
+    }
+  };
+
   return (
-    <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
-      <StyledCard>
-        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+    <StyledCard>
+      <Link to={`/detail/${pokemon.id}`} state={{ pokemon }}>
+        <StyledImage src={pokemon.img_url} alt={pokemon.korean_name} />
         <h3>{pokemon.korean_name}</h3>
         <p>{"NO." + pokemon.id.toString().padStart(3, "0")}</p>
-        {onSelectPokemon ? (
-          <Button
-            text={"추가"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation(); // Link 이벤트 막기
-              onSelectPokemon(pokemon);
-            }}
-          />
-        ) : (
-          <Button
-            text={"삭제"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation(); // Link 이벤트 막기
-              onRemovePokemon(pokemon);
-            }}
-          />
-        )}
-      </StyledCard>
-    </Link>
+      </Link>
+
+      <Button
+        text={buttonType !== "delete" ? "추가" : "삭제"}
+        onClick={(e) => handleButtonClick(e, pokemon)}
+      />
+    </StyledCard>
   );
 }
 

@@ -1,8 +1,29 @@
-# React + Vite
+# Pokémon Dex
+간단한 Pokémon 선택 및 관리 프로젝트입니다!
+사용자는 최대 6마리의 Pokémon을 선택할 수 있습니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🖥️ 배포 링크
+### [포켓몬 덱스(Pokémon Dex) - 바로가기](https://pokemon-dex-theta.vercel.app/)
 
-Currently, two official plugins are available:
+# 🔧 기술 스택
+프론트엔드 프레임워크: React (Vite)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+상태 관리:
+- Props Drilling
+- Context API
+- Redux Toolkit
+  
+페이지 라우팅: react-route-dom
+
+알림 UI: SweetAlert2
+
+배포: Vercel
+
+# 🎯 프로젝트 기능
+포켓몬 선택: 사용자는 최대 6마리의 포켓몬을 선택할 수 있습니다.
+
+포켓몬 정보 : 포켓몬 클릭 시, 포켓몬 정보(/detail)페이지로 이동합니다.
+
+상태 관리 학습 및 구현: Props Drilling, Context API, Redux Toolkit 방식을 각각 학습하고 적용하였습니다.
+
+유저 알림: SweetAlert2로 사용자 친화적인 알림 UI를 구현하였습니다.
